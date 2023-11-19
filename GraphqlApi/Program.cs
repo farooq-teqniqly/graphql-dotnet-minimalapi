@@ -15,7 +15,7 @@ namespace GraphqlApi
 				.Services
 				.AddGraphQLServer()
 				.RegisterService<IBookRepository>()
-				.AddQueryType<Query>();
+				.AddQueryType<BooksQuery>();
 
 			var app = builder.Build();
 
@@ -23,8 +23,4 @@ namespace GraphqlApi
 			app.Run();
 		}
 	}
-
-	public record Book(string? Title, Author? Author);
-
-	public record Author(string Name);
 }
