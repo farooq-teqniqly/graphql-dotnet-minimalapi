@@ -4,18 +4,22 @@
 
 namespace GraphqlApi
 {
+	using Queries;
+
 	public class Program
 	{
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddScoped<IBookRepository, BookRepository>();
+			builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 			builder
 				.Services
 				.AddGraphQLServer()
 				.RegisterService<IBookRepository>()
-				.AddQueryType<BooksQuery>();
+				.RegisterService<ICustomerRepository>()
+				.AddQueryType<Query>();
 
 			var app = builder.Build();
 

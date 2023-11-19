@@ -2,15 +2,11 @@
 // Copyright (c) Teqniqly. All rights reserved.
 // </copyright>
 
-namespace GraphqlApi
+namespace GraphqlApi.Queries
 {
-	public class BooksQuery
+	public partial class Query
 	{
 		public IEnumerable<Book> GetBooks(IBookRepository bookRepository)
 			=> bookRepository.GetBooks();
 	}
-
-	public record Book(string? Title, Author? Author);
-
-	public record Author(string Name);
 }
