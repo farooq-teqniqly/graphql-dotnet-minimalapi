@@ -2,10 +2,9 @@
 // Copyright (c) Teqniqly. All rights reserved.
 // </copyright>
 
-namespace GraphqlApi.Tests
+namespace GraphqlApi.Tests.Utils
 {
 	using System.Text.Json;
-	using System.Threading.Tasks;
 
 	internal class GraphqlResponseMessage
 	{

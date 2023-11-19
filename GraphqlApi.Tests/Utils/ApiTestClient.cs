@@ -2,15 +2,13 @@
 // Copyright (c) Teqniqly. All rights reserved.
 // </copyright>
 
-namespace GraphqlApi.Tests
+namespace GraphqlApi.Tests.Utils
 {
 	using FluentAssertions;
-	using System;
 	using System.Net;
 	using System.Net.Http.Json;
 	using System.Text;
 	using System.Text.Json;
-	using System.Threading.Tasks;
 
 	internal class ApiTestClient
 	{

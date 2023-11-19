@@ -2,7 +2,7 @@
 // Copyright (c) Teqniqly. All rights reserved.
 // </copyright>
 
-namespace GraphqlApi
+namespace GraphqlApi.Models
 {
 	public record Book(string? Title, Author? Author);
 }

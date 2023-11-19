@@ -5,8 +5,10 @@
 namespace GraphqlApi.Tests.QueryTests
 {
 	using FluentAssertions;
+	using Models;
 	using System;
 	using System.Net;
+	using Utils;
 
 	public class QueryBookTests : IClassFixture<CustomWebApplicationFactory>, IDisposable
 	{

@@ -5,6 +5,7 @@
 namespace GraphqlApi
 {
 	using Queries;
+	using Repositories;
 
 	public class Program
 	{
