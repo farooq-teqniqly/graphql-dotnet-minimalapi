@@ -23,5 +23,7 @@ namespace GraphqlApi.Tests.Utils
 			return dataElement.Deserialize<T>(jsonSerializerOptions);
 
 		}
+
+		public async Task<string> ReadAsStringAsync() => await httpResponseMessage.Content.ReadAsStringAsync();
 	}
 }

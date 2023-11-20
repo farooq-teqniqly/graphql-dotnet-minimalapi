@@ -5,7 +5,7 @@
 namespace GraphqlApi.Tests.QueryTests
 {
 	using FluentAssertions;
-	using Models;
+	using Snapshooter.Xunit;
 	using System;
 	using System.Net;
 	using Utils;
@@ -31,12 +31,9 @@ namespace GraphqlApi.Tests.QueryTests
 						}";
 
 			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var books = await response.DeserializeAsync<Book[]>("books");
+			var queryResult = await response.ReadAsStringAsync();
 
-			books.Should().NotBeNull();
-			books!.Length.Should().Be(2);
-			books.Single(b => b.Title == "No Country for Old Men").Author!.Name.Should().Be("Cormac McCarthy");
-			books.Single(b => b.Title == "The Road").Author!.Name.Should().Be("Cormac McCarthy");
+			Snapshot.Match(queryResult);
 		}
 
 		[Fact]
@@ -49,12 +46,9 @@ namespace GraphqlApi.Tests.QueryTests
 						}";
 
 			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var books = await response.DeserializeAsync<Book[]>("books");
+			var queryResult = await response.ReadAsStringAsync();
 
-			books.Should().NotBeNull();
-			books!.Length.Should().Be(2);
-
-			books.Count(b => b.Author is null).Should().Be(2);
+			Snapshot.Match(queryResult);
 		}
 
 		[Fact]
@@ -69,13 +63,9 @@ namespace GraphqlApi.Tests.QueryTests
 						}";
 
 			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var books = await response.DeserializeAsync<Book[]>("books");
+			var queryResult = await response.ReadAsStringAsync();
 
-			books.Should().NotBeNull();
-			books!.Length.Should().Be(2);
-
-			books.Count(b => b.Title is null).Should().Be(2);
-			books.Count(b => b.Author!.Name == "Cormac McCarthy").Should().Be(2);
+			Snapshot.Match(queryResult);
 		}
 
 		[Fact]
@@ -90,6 +80,10 @@ namespace GraphqlApi.Tests.QueryTests
 
 			var response = await client.PostAsync(GraphqlEndpoint, query);
 			response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+			var error = await response.Content.ReadAsStringAsync();
+
+			Snapshot.Match(error);
 		}
 
 		public void Dispose() => client.Dispose();
