@@ -30,8 +30,7 @@ namespace GraphqlApi.Tests.QueryTests
 						    }
 						}";
 
-			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var queryResult = await response.Content.ReadAsStringAsync();
+			var queryResult = await RunQueryTest(query);
 
 			Snapshot.Match(queryResult);
 		}
@@ -45,8 +44,7 @@ namespace GraphqlApi.Tests.QueryTests
 						    }
 						}";
 
-			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var queryResult = await response.Content.ReadAsStringAsync();
+			var queryResult = await RunQueryTest(query);
 
 			Snapshot.Match(queryResult);
 		}
@@ -62,8 +60,7 @@ namespace GraphqlApi.Tests.QueryTests
 						    }
 						}";
 
-			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var queryResult = await response.Content.ReadAsStringAsync();
+			var queryResult = await RunQueryTest(query);
 
 			Snapshot.Match(queryResult);
 		}
@@ -76,16 +73,23 @@ namespace GraphqlApi.Tests.QueryTests
 						         author {
 								}
 						    }
-						}".AsGraphqlQuery();
+						}";
 
-			var response = await client.PostAsync(GraphqlEndpoint, query);
-			response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-			var error = await response.Content.ReadAsStringAsync();
+			var error = await RunQueryTest(query, HttpStatusCode.BadRequest);
 
 			Snapshot.Match(error);
 		}
 
 		public void Dispose() => client.Dispose();
+
+		private async Task<string> RunQueryTest(
+			string query,
+			HttpStatusCode expectedStatusCode = HttpStatusCode.OK)
+		{
+			var response = await client.PostAsync(GraphqlEndpoint, query.AsGraphqlQuery());
+			response.StatusCode.Should().Be(expectedStatusCode);
+
+			return await response.Content.ReadAsStringAsync();
+		}
 	}
 }
