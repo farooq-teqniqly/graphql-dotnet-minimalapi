@@ -23,7 +23,7 @@ namespace GraphqlApi.Tests.Utils
 			return await client.PostAsync(endpoint, content);
 		}
 
-		public async Task<GraphqlResponseMessage> EnsureGraphqlPostAsync(string endpoint, string query)
+		public async Task<HttpResponseMessage> EnsureGraphqlPostAsync(string endpoint, string query)
 		{
 			var content = new StringContent(
 					JsonSerializer.Serialize(query.AsGraphqlQuery()),
@@ -35,7 +35,7 @@ namespace GraphqlApi.Tests.Utils
 			response.Should().NotBeNull();
 			response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-			return new GraphqlResponseMessage(response);
+			return response;
 		}
 
 		public async Task<HttpResponseMessage> GetAsync(string endpoint) => await client.GetAsync(endpoint);

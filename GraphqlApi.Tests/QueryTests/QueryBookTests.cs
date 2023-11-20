@@ -31,7 +31,7 @@ namespace GraphqlApi.Tests.QueryTests
 						}";
 
 			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var queryResult = await response.ReadAsStringAsync();
+			var queryResult = await response.Content.ReadAsStringAsync();
 
 			Snapshot.Match(queryResult);
 		}
@@ -46,7 +46,7 @@ namespace GraphqlApi.Tests.QueryTests
 						}";
 
 			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var queryResult = await response.ReadAsStringAsync();
+			var queryResult = await response.Content.ReadAsStringAsync();
 
 			Snapshot.Match(queryResult);
 		}
@@ -63,7 +63,7 @@ namespace GraphqlApi.Tests.QueryTests
 						}";
 
 			var response = await client.EnsureGraphqlPostAsync(GraphqlEndpoint, query);
-			var queryResult = await response.ReadAsStringAsync();
+			var queryResult = await response.Content.ReadAsStringAsync();
 
 			Snapshot.Match(queryResult);
 		}
